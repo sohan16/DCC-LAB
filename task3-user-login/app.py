@@ -83,10 +83,27 @@ def hash_password(password):
     salt = "your_unique_salt_2024"  # Change this to a unique salt
     return hashlib.sha256((password + salt).encode()).hexdigest()
 
-# Modern CSS with new design
+# Modern Dark Theme CSS
 HTML_STYLE = """
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+    
+    :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --secondary: #f1f5f9;
+        --accent: #06b6d4;
+        --success: #10b981;
+        --error: #ef4444;
+        --warning: #f59e0b;
+        --dark: #0f172a;
+        --dark-card: #1e293b;
+        --dark-border: #334155;
+        --text-primary: #f8fafc;
+        --text-secondary: #cbd5e1;
+        --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        --shadow-lg: 0 35px 60px -12px rgba(0, 0, 0, 0.4);
+    }
     
     * {
         margin: 0;
@@ -95,177 +112,389 @@ HTML_STYLE = """
     }
     
     body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        background: #f1f5f9;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 20px;
-        color: #1a2a44;
+        position: relative;
+        overflow-x: hidden;
+    }
+    
+    /* Animated Background Elements */
+    body::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+        animation: rotate 20s linear infinite;
+        z-index: 1;
+    }
+    
+    body::after {
+        content: '';
+        position: absolute;
+        top: 20%;
+        right: 10%;
+        width: 300px;
+        height: 300px;
+        background: radial-gradient(circle, rgba(6, 182, 212, 0.15) 0%, transparent 70%);
+        border-radius: 50%;
+        animation: pulse 4s ease-in-out infinite;
+        z-index: 1;
+    }
+    
+    @keyframes rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { transform: scale(1) translateY(0px); opacity: 0.5; }
+        50% { transform: scale(1.1) translateY(-10px); opacity: 0.8; }
     }
     
     .container {
-        background: #ffffff;
-        border-radius: 16px;
-        padding: 32px;
+        background: var(--dark-card);
+        border: 1px solid var(--dark-border);
+        padding: 48px 40px;
+        border-radius: 24px;
+        box-shadow: var(--shadow-lg);
         width: 100%;
-        max-width: 500px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        border: 1px solid #e2e8f0;
-        animation: fadeIn 0.5s ease-out;
+        max-width: 450px;
+        position: relative;
+        z-index: 10;
+        backdrop-filter: blur(20px);
+        animation: slideInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
     
-    @keyframes fadeIn {
-        from {
+    @keyframes slideInUp {
+        0% {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(50px) scale(0.95);
         }
-        to {
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+    
+    .logo {
+        text-align: center;
+        margin-bottom: 32px;
+    }
+    
+    .logo-icon {
+        font-size: 64px;
+        margin-bottom: 16px;
+        display: block;
+        animation: bounce 2s infinite;
+        filter: drop-shadow(0 4px 8px rgba(99, 102, 241, 0.3));
+    }
+    
+    @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+        40% { transform: translateY(-12px); }
+        60% { transform: translateY(-6px); }
+    }
+    
+    h1, h2 {
+        color: var(--text-primary);
+        text-align: center;
+        font-weight: 700;
+        margin-bottom: 12px;
+        line-height: 1.2;
+    }
+    
+    h1 { font-size: 32px; }
+    h2 { font-size: 28px; }
+    
+    .subtitle {
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 16px;
+        margin-bottom: 40px;
+        font-weight: 400;
+    }
+    
+    .form-group {
+        margin-bottom: 24px;
+        position: relative;
+    }
+    
+    .input-wrapper {
+        position: relative;
+    }
+    
+    input[type="text"], input[type="password"], input[type="email"] {
+        width: 100%;
+        padding: 18px 20px 18px 50px;
+        border: 2px solid var(--dark-border);
+        border-radius: 16px;
+        font-size: 16px;
+        font-weight: 400;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        background: rgba(15, 23, 42, 0.8);
+        color: var(--text-primary);
+        font-family: 'Poppins', sans-serif;
+        outline: none;
+    }
+    
+    input::placeholder {
+        color: var(--text-secondary);
+        font-weight: 400;
+    }
+    
+    input:focus {
+        border-color: var(--primary);
+        background: rgba(15, 23, 42, 0.9);
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        transform: translateY(-2px);
+    }
+    
+    .input-icon {
+        position: absolute;
+        left: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-secondary);
+        font-size: 18px;
+        z-index: 2;
+        transition: color 0.3s ease;
+    }
+    
+    input:focus + .input-icon {
+        color: var(--primary);
+    }
+    
+    .btn {
+        width: 100%;
+        padding: 18px 24px;
+        border: none;
+        border-radius: 16px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        font-family: 'Poppins', sans-serif;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin: 12px 0;
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        color: white;
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4);
+    }
+    
+    .btn-secondary {
+        background: var(--dark-border);
+        color: var(--text-primary);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .btn-secondary:hover {
+        background: #475569;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+    
+    .btn-danger {
+        background: linear-gradient(135deg, var(--error) 0%, #dc2626 100%);
+        color: white;
+        box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+    }
+    
+    .btn-danger:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(239, 68, 68, 0.4);
+    }
+    
+    .btn-warning {
+        background: linear-gradient(135deg, var(--warning) 0%, #d97706 100%);
+        color: white;
+        box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
+    }
+    
+    .btn-warning:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(245, 158, 11, 0.4);
+    }
+    
+    .link-group {
+        text-align: center;
+        margin-top: 32px;
+    }
+    
+    .link {
+        color: var(--text-secondary);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: inline-block;
+        margin: 8px 0;
+    }
+    
+    .link:hover {
+        color: var(--primary);
+        transform: translateX(2px);
+    }
+    
+    .message {
+        padding: 24px;
+        margin: 24px 0;
+        border-radius: 20px;
+        font-weight: 500;
+        text-align: center;
+        border: 1px solid;
+        animation: slideInDown 0.6s ease-out;
+    }
+    
+    @keyframes slideInDown {
+        0% {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        100% {
             opacity: 1;
             transform: translateY(0);
         }
     }
     
-    .icon {
-        font-size: 40px;
+    .message-success {
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.1) 100%);
+        color: #6ee7b7;
+        border-color: rgba(16, 185, 129, 0.3);
+    }
+    
+    .message-error {
+        background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+        color: #fca5a5;
+        border-color: rgba(239, 68, 68, 0.3);
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin: 32px 0;
+    }
+    
+    .stat-card {
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid var(--dark-border);
+        border-radius: 16px;
+        padding: 24px 16px;
         text-align: center;
-        margin-bottom: 16px;
-        color: #2dd4bf;
+        transition: all 0.3s ease;
     }
     
-    h2 {
-        text-align: center;
-        color: #1a2a44;
-        margin-bottom: 24px;
-        font-size: 28px;
-        font-weight: 700;
+    .stat-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--primary);
+        box-shadow: 0 10px 25px rgba(99, 102, 241, 0.1);
     }
     
-    .form-group {
-        margin-bottom: 20px;
+    .stat-icon {
+        font-size: 32px;
+        margin-bottom: 8px;
+        display: block;
     }
     
-    input[type="text"], input[type="password"], input[type="email"] {
-        width: 100%;
-        padding: 12px 16px;
-        border: 1px solid #e2e8f0;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: 500;
-        transition: all 0.2s ease;
-        background: #f8fafc;
-        color: #1a2a44;
-    }
-    
-    input::placeholder {
-        color: #64748b;
-    }
-    
-    input:focus {
-        border-color: #2dd4bf;
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.1);
-        background: #ffffff;
-    }
-    
-    button {
-        width: 100%;
-        padding: 12px 24px;
-        background: #2dd4bf;
-        color: #ffffff;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: 600;
-        margin: 12px 0;
-        transition: all 0.2s ease;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    
-    button:hover {
-        background: #26c6b0;
-        transform: translateY(-2px);
-    }
-    
-    button[style*="background: linear-gradient"] {
-        background: #f472b6 !important;
-    }
-    
-    button[style*="background: linear-gradient"]:hover {
-        background: #ec4899 !important;
-    }
-    
-    .link {
-        text-align: center;
-        margin-top: 16px;
-    }
-    
-    .link a {
-        color: #2dd4bf;
-        text-decoration: none;
-        font-weight: 500;
+    .stat-label {
+        color: var(--text-secondary);
         font-size: 14px;
-        transition: all 0.2s ease;
-    }
-    
-    .link a:hover {
-        color: #26c6b0;
-    }
-    
-    .message {
-        text-align: center;
-        padding: 20px;
-        margin: 20px 0;
-        border-radius: 12px;
         font-weight: 500;
-        border: 1px solid #e2e8f0;
     }
     
-    .success {
-        background: #e6fffa;
-        color: #1a2a44;
-        border-color: #2dd4bf;
-    }
-    
-    .error {
-        background: #ffe6e6;
-        color: #1a2a44;
-        border-color: #f472b6;
-    }
-    
-    .home-buttons {
+    .button-grid {
         display: flex;
         flex-direction: column;
-        gap: 12px;
+        gap: 16px;
+        margin-top: 24px;
     }
     
-    .home-buttons a {
+    .button-grid a {
         text-decoration: none;
     }
     
-    .stats {
-        display: flex;
-        justify-content: space-around;
-        margin: 20px 0;
-        padding: 16px;
-        background: #f8fafc;
-        border-radius: 12px;
-        border: 1px solid #e2e8f0;
+    /* Floating particles */
+    .particles {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+        pointer-events: none;
     }
     
-    .stat-item {
-        text-align: center;
-        color: #64748b;
+    .particle {
+        position: absolute;
+        background: var(--primary);
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        opacity: 0.6;
+        animation: float 8s infinite linear;
     }
     
-    .stat-number {
-        font-size: 24px;
-        font-weight: 700;
-        color: #2dd4bf;
-        margin-bottom: 8px;
+    .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+    .particle:nth-child(2) { left: 30%; animation-delay: 2s; }
+    .particle:nth-child(3) { left: 50%; animation-delay: 4s; }
+    .particle:nth-child(4) { left: 70%; animation-delay: 6s; }
+    .particle:nth-child(5) { left: 90%; animation-delay: 1s; }
+    
+    @keyframes float {
+        0% {
+            bottom: -10px;
+            transform: translateX(0px) rotate(0deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 0.6;
+        }
+        90% {
+            opacity: 0.6;
+        }
+        100% {
+            bottom: 100vh;
+            transform: translateX(-50px) rotate(180deg);
+            opacity: 0;
+        }
+    }
+    
+    /* Responsive */
+    @media (max-width: 480px) {
+        .container {
+            padding: 32px 24px;
+            margin: 16px;
+        }
+        
+        h1 { font-size: 28px; }
+        h2 { font-size: 24px; }
+        
+        .stats-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
     }
 </style>
 """
@@ -273,36 +502,49 @@ HTML_STYLE = """
 @app.route('/')
 def index():
     return render_template_string(HTML_STYLE + '''
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
     <div class="container">
-        <div class="icon">🚀</div>
-        <h2>Welcome Back</h2>
-        <p style="text-align: center; color: #64748b; margin-bottom: 24px;">
-            Manage your account with style
-        </p>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-number">🔐</div>
-                <div>Secure</div>
+        <div class="logo">
+            <span class="logo-icon">🌟</span>
+            <h1>SecureHub</h1>
+            <p class="subtitle">Your modern authentication portal</p>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-icon">🔐</span>
+                <div class="stat-label">Secure</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">⚡</div>
-                <div>Fast</div>
+            <div class="stat-card">
+                <span class="stat-icon">⚡</span>
+                <div class="stat-label">Fast</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">🎯</div>
-                <div>Simple</div>
+            <div class="stat-card">
+                <span class="stat-icon">🎯</span>
+                <div class="stat-label">Simple</div>
             </div>
         </div>
-        <div class="home-buttons">
+        
+        <div class="button-grid">
             <a href="/register">
-                <button type="button">📝 Create New Account</button>
+                <button class="btn btn-primary">
+                    <span>📝</span> Create New Account
+                </button>
             </a>
             <a href="/login">
-                <button type="button">🔑 Login to Account</button>
+                <button class="btn btn-secondary">
+                    <span>🔑</span> Login to Account
+                </button>
             </a>
             <a href="/init-db">
-                <button type="button" style="background: linear-gradient(135deg, rgba(255, 206, 84, 0.2) 0%, rgba(255, 107, 107, 0.2) 100%);">
-                    🔄 Reset Database
+                <button class="btn btn-warning">
+                    <span>🔄</span> Reset Database
                 </button>
             </a>
         </div>
@@ -312,35 +554,65 @@ def index():
 @app.route('/register')
 def register_page():
     return render_template_string(HTML_STYLE + '''
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
     <div class="container">
-        <div class="icon">✨</div>
-        <h2>Create Account</h2>
+        <div class="logo">
+            <span class="logo-icon">✨</span>
+            <h2>Create Account</h2>
+            <p class="subtitle">Join our secure platform today</p>
+        </div>
+        
         <form method="POST" action="/register">
             <div class="form-group">
-                <input type="text" name="username" placeholder="Username (required)" required minlength="3">
+                <div class="input-wrapper">
+                    <input type="text" name="username" placeholder="Username (required)" required minlength="3">
+                    <span class="input-icon">👤</span>
+                </div>
             </div>
             <div class="form-group">
-                <input type="email" name="email" placeholder="Email (optional)">
+                <div class="input-wrapper">
+                    <input type="email" name="email" placeholder="Email (optional)">
+                    <span class="input-icon">📧</span>
+                </div>
             </div>
             <div class="form-group">
-                <input type="text" name="full_name" placeholder="Full Name (optional)">
+                <div class="input-wrapper">
+                    <input type="text" name="full_name" placeholder="Full Name (optional)">
+                    <span class="input-icon">🏷️</span>
+                </div>
             </div>
             <div class="form-group">
-                <input type="text" name="phone" placeholder="Phone (optional)">
+                <div class="input-wrapper">
+                    <input type="text" name="phone" placeholder="Phone (optional)">
+                    <span class="input-icon">📱</span>
+                </div>
             </div>
             <div class="form-group">
-                <input type="password" name="password" placeholder="Password (min 6 chars)" required minlength="6">
+                <div class="input-wrapper">
+                    <input type="password" name="password" placeholder="Password (min 6 chars)" required minlength="6">
+                    <span class="input-icon">🔒</span>
+                </div>
             </div>
             <div class="form-group">
-                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                <div class="input-wrapper">
+                    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                    <span class="input-icon">🔐</span>
+                </div>
             </div>
-            <button type="submit">Create Account</button>
+            <button type="submit" class="btn btn-primary">
+                <span>🚀</span> Create Account
+            </button>
         </form>
-        <div class="link">
-            <a href="/login">Already have an account? Login here</a>
-        </div>
-        <div class="link">
-            <a href="/">← Back to Home</a>
+        
+        <div class="link-group">
+            <a href="/login" class="link">Already have an account? Login here</a><br>
+            <a href="/" class="link">← Back to Home</a>
         </div>
     </div>
     ''')
@@ -348,23 +620,41 @@ def register_page():
 @app.route('/login')
 def login_page():
     return render_template_string(HTML_STYLE + '''
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
     <div class="container">
-        <div class="icon">🔮</div>
-        <h2>Welcome Back</h2>
+        <div class="logo">
+            <span class="logo-icon">🔮</span>
+            <h2>Welcome Back</h2>
+            <p class="subtitle">Sign in to your account</p>
+        </div>
+        
         <form method="POST" action="/login">
             <div class="form-group">
-                <input type="text" name="username" placeholder="Enter Username" required>
+                <div class="input-wrapper">
+                    <input type="text" name="username" placeholder="Enter Username" required>
+                    <span class="input-icon">👤</span>
+                </div>
             </div>
             <div class="form-group">
-                <input type="password" name="password" placeholder="Enter Password" required>
+                <div class="input-wrapper">
+                    <input type="password" name="password" placeholder="Enter Password" required>
+                    <span class="input-icon">🔒</span>
+                </div>
             </div>
-            <button type="submit">Login</button>
+            <button type="submit" class="btn btn-primary">
+                <span>🚀</span> Login
+            </button>
         </form>
-        <div class="link">
-            <a href="/register">Need an account? Register here</a>
-        </div>
-        <div class="link">
-            <a href="/">← Back to Home</a>
+        
+        <div class="link-group">
+            <a href="/register" class="link">Need an account? Register here</a><br>
+            <a href="/" class="link">← Back to Home</a>
         </div>
     </div>
     ''')
@@ -478,35 +768,50 @@ def dashboard():
     
     username = session['username']
     return render_template_string(HTML_STYLE + '''
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
     <div class="container">
-        <div class="icon">🎯</div>
-        <h2>Dashboard</h2>
-        <div class="message success">
-            <h3>Welcome, {}!</h3>
+        <div class="logo">
+            <span class="logo-icon">🎯</span>
+            <h2>Dashboard</h2>
+            <p class="subtitle">Welcome to your control center</p>
+        </div>
+        
+        <div class="message message-success">
+            <h3>🎉 Welcome, {}!</h3>
             <p>You are successfully logged in to your dashboard.</p>
         </div>
-        <div class="stats">
-            <div class="stat-item">
-                <div class="stat-number">✅</div>
-                <div>Active</div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-icon">✅</span>
+                <div class="stat-label">Active</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">🔐</div>
-                <div>Secure</div>
+            <div class="stat-card">
+                <span class="stat-icon">🔐</span>
+                <div class="stat-label">Secure</div>
             </div>
-            <div class="stat-item">
-                <div class="stat-number">🚀</div>
-                <div>Ready</div>
+            <div class="stat-card">
+                <span class="stat-icon">🚀</span>
+                <div class="stat-label">Ready</div>
             </div>
         </div>
-        <div class="home-buttons">
+        
+        <div class="button-grid">
             <a href="/logout">
-                <button type="button" style="background: linear-gradient(135deg, rgba(255, 206, 84, 0.2) 0%, rgba(255, 107, 107, 0.2) 100%);">
-                    🚪 Logout
+                <button class="btn btn-danger">
+                    <span>🚪</span> Logout
                 </button>
             </a>
             <a href="/">
-                <button type="button">🏠 Home</button>
+                <button class="btn btn-secondary">
+                    <span>🏠</span> Home
+                </button>
             </a>
         </div>
     </div>
@@ -543,31 +848,53 @@ def test_db():
 
 def show_success(message, link_url="/", link_text="Continue"):
     return render_template_string(HTML_STYLE + '''
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
     <div class="container">
-        <div class="message success">
-            <div class="icon">🎉</div>
+        <div class="logo">
+            <span class="logo-icon">🎉</span>
+        </div>
+        <div class="message message-success">
             <h3>Success!</h3>
             <p>{}</p>
         </div>
-        <div class="link">
-            <a href="{}"><button type="button">{}</button></a>
+        <div class="button-grid">
+            <a href="{}">
+                <button class="btn btn-primary">{}</button>
+            </a>
         </div>
     </div>
     '''.format(message, link_url, link_text))
 
 def show_error(message):
     return render_template_string(HTML_STYLE + '''
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
     <div class="container">
-        <div class="message error">
-            <div class="icon">❌</div>
+        <div class="logo">
+            <span class="logo-icon">❌</span>
+        </div>
+        <div class="message message-error">
             <h3>Error</h3>
             <p>{}</p>
         </div>
-        <div class="link">
-            <a href="javascript:history.back()"><button type="button">Try Again</button></a>
-        </div>
-        <div class="link">
-            <a href="/">Go Home</a>
+        <div class="button-grid">
+            <a href="javascript:history.back()">
+                <button class="btn btn-secondary">Try Again</button>
+            </a>
+            <a href="/">
+                <button class="btn btn-primary">Go Home</button>
+            </a>
         </div>
     </div>
     '''.format(message))
