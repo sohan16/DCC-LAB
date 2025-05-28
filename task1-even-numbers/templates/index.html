@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Even Numbers Generator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
+            padding: 40px 30px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #102a43;
+            margin-bottom: 10px;
+            font-size: 2.4rem;
+            font-weight: 500;
+        }
+
+        .subtitle {
+            color: #3e4c59;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #334e68;
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #bcccdc;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            background: #f0f4f8;
+            color: #102a43;
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #38b2ac;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(56, 178, 172, 0.2);
+        }
+
+        .btn {
+            background: linear-gradient(90deg, #38b2ac, #319795);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            box-shadow: 0 4px 14px rgba(56, 178, 172, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(56, 178, 172, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .result-section {
+            margin-top: 40px;
+            padding: 25px;
+            background: #edf2f7;
+            border-radius: 15px;
+            border: 1px solid #cbd5e0;
+        }
+
+        .result-title {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .number-item {
+            background: linear-gradient(135deg, #319795, #285e61);
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s ease;
+        }
+
+        .number-item:hover {
+            transform: scale(1.05);
+        }
+
+        .error-message {
+            background: linear-gradient(45deg, #e53e3e, #c53030);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            box-shadow: 0 3px 15px rgba(229, 62, 62, 0.3);
+        }
+
+        .no-result {
+            color: #718096;
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            color: #718096;
+            font-size: 0.9rem;
+        }
+
+        /* Scrollbar */
+        .numbers-grid::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .numbers-grid::-webkit-scrollbar-track {
+            background: #edf2f7;
+            border-radius: 10px;
+        }
+
+        .numbers-grid::-webkit-scrollbar-thumb {
+            background: #319795;
+            border-radius: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .numbers-grid {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+                gap: 8px;
+            }
+
+            .number-item {
+                padding: 10px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .number-item {
+            animation: fadeInUp 0.3s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔢 Even Numbers Generator</h1>
+        <p class="subtitle">Generate the first N even numbers</p>
+        
+        <form method="POST">
+            <div class="input-group">
+                <label for="number">Enter a number (N):</label>
+                <input type="number" id="number" name="number" min="1" max="100" required>
+            </div>
+            <button type="submit" class="btn">Generate Even Numbers</button>
+        </form>
+
+        {% if even_numbers %}
+        <div class="result-section">
+            {% if even_numbers[0] == 'Invalid Input!' %}
+                <div class="error-message">
+                    ❌ {{ even_numbers[0] }}
+                </div>
+            {% else %}
+                <h3 class="result-title">✨ Generated Even Numbers:</h3>
+                <div class="numbers-grid">
+                    {% for number in even_numbers %}
+                        <div class="number-item">{{ number }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="footer">
+            <p>Built with Flask</p>
+        </div>
+    </div>
+</body>
+</html>
