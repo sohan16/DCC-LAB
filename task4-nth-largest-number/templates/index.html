@@ -2,439 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nth Largest Number Finder</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            font-family: 'Segoe UI', sans-serif;
         }
-
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(15px);
-            border-radius: 25px;
-            padding: 50px;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 100%;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
-            border-radius: 25px 25px 0 0;
-        }
-
-        .header {
-            margin-bottom: 40px;
-        }
-
-        .header h1 {
-            font-size: 2.8rem;
-            font-weight: 300;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            letter-spacing: -1px;
-        }
-
-        .header .subtitle {
-            color: #666;
-            font-size: 1.2rem;
-            opacity: 0.8;
-            font-weight: 400;
-        }
-
-        .form-container {
-            background: #f8f9fa;
-            border-radius: 20px;
-            padding: 35px;
-            margin-bottom: 30px;
-            border: 1px solid #e9ecef;
-            position: relative;
-        }
-
-        .input-group {
-            margin-bottom: 25px;
-            text-align: left;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 12px;
-            color: #495057;
-            font-weight: 600;
-            font-size: 1.1rem;
-            position: relative;
-        }
-
-        .input-group label::before {
-            content: '';
-            position: absolute;
-            left: -20px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 20px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            border-radius: 2px;
-        }
-
-        .number-input {
-            width: 100%;
-            padding: 18px 25px;
-            border: 2px solid #e0e0e0;
-            border-radius: 15px;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
             background: white;
-            color: #333;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .number-input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .number-input::placeholder {
-            color: #adb5bd;
-            font-style: italic;
-        }
-
-        .n-input {
-            width: 150px;
-            padding: 18px 25px;
-            border: 2px solid #e0e0e0;
+            padding: 2rem;
             border-radius: 15px;
-            font-size: 1.2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            background: white;
-            color: #333;
-            font-weight: 600;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .n-input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
-            transform: scale(1.05);
-        }
-
-        .submit-btn {
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            color: white;
-            border: none;
-            padding: 18px 40px;
-            border-radius: 15px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
         }
-
-        .submit-btn:hover::before {
-            left: 100%;
+        .form-control, .btn {
+            border-radius: 10px;
         }
-
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
-        }
-
-        .submit-btn:active {
-            transform: translateY(-1px);
-        }
-
-        .result-section {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 20px;
-            padding: 35px;
-            border: 2px solid #dee2e6;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .result-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #28a745, #20c997, #17a2b8);
-        }
-
-        .result-title {
-            color: #495057;
-            margin-bottom: 25px;
-            font-size: 1.4rem;
-            font-weight: 600;
-        }
-
-        .result-value {
-            background: linear-gradient(45deg, #28a745, #20c997);
-            color: white;
-            padding: 25px 35px;
-            border-radius: 15px;
-            font-size: 2.5rem;
+        .result {
             font-weight: bold;
-            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
-            display: inline-block;
-            min-width: 120px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .result-value::before {
-            content: '🎯';
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            font-size: 1.5rem;
-            opacity: 0.3;
-        }
-
-        .input-hint {
-            background: linear-gradient(45deg, #17a2b8, #6f42c1);
-            color: white;
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        .example-section {
-            background: rgba(102, 126, 234, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            margin-top: 20px;
-            border-left: 4px solid #667eea;
-        }
-
-        .example-title {
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .example-text {
-            color: #495057;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .floating-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-        }
-
-        .floating-number {
-            position: absolute;
-            color: rgba(102, 126, 234, 0.1);
-            font-size: 2rem;
-            font-weight: bold;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .floating-number:nth-child(1) { top: 10%; left: 80%; animation-delay: -1s; }
-        .floating-number:nth-child(2) { top: 20%; left: 10%; animation-delay: -3s; }
-        .floating-number:nth-child(3) { top: 60%; left: 85%; animation-delay: -2s; }
-        .floating-number:nth-child(4) { top: 80%; left: 15%; animation-delay: -4s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 30px 20px;
-                margin: 10px;
-            }
-
-            .header h1 {
-                font-size: 2.2rem;
-            }
-
-            .form-container {
-                padding: 25px 20px;
-            }
-
-            .number-input,
-            .n-input {
-                padding: 15px 20px;
-                font-size: 1rem;
-            }
-
-            .submit-btn {
-                padding: 15px 30px;
-                font-size: 1rem;
-            }
-
-            .result-value {
-                font-size: 2rem;
-                padding: 20px 25px;
-            }
-
-            .floating-number {
-                font-size: 1.5rem;
-            }
-        }
-
-        /* Animation */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .container {
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .form-container {
-            animation: fadeInUp 0.4s ease-out 0.2s both;
-        }
-
-        .result-section {
-            animation: fadeInUp 0.5s ease-out 0.4s both;
-        }
-
-        /* Input focus animations */
-        .input-group {
-            position: relative;
-        }
-
-        .input-group::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            transition: width 0.3s ease;
-        }
-
-        .input-group:focus-within::after {
-            width: 100%;
+            margin-top: 1rem;
+            color: #333;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Floating Background Numbers -->
-        <div class="floating-elements">
-            <div class="floating-number">1</div>
-            <div class="floating-number">2</div>
-            <div class="floating-number">3</div>
-            <div class="floating-number">N</div>
-        </div>
-
-        <div class="header">
-            <h1>🔍 Nth Largest Number Finder</h1>
-            <p class="subtitle">Discover the Nth largest number in your dataset!</p>
-        </div>
-
-        <div class="form-container">
-            <div class="input-hint">
-                💡 Enter numbers separated by commas, then specify which largest number you want to find
+        <h2 class="text-center mb-4">Nth Largest Number Finder</h2>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="numbers" class="form-label">Enter numbers (comma-separated):</label>
+                <input type="text" class="form-control" id="numbers" name="numbers" value="{{ numbers_input }}" required>
             </div>
-
-            <form method="POST" action="/">
-                <div class="input-group">
-                    <label>📊 Enter a list of numbers (comma separated):</label>
-                    <input type="text" name="numbers" class="number-input" 
-                           value="{{ numbers_input if numbers_input else '' }}" 
-                           placeholder="e.g., 10, 5, 8, 20, 3, 15, 7, 12" required>
-                </div>
-
-                <div class="input-group">
-                    <label>🎯 Enter N (which largest number to find):</label>
-                    <div style="text-align: center;">
-                        <input type="number" name="n" min="1" class="n-input" 
-                               value="{{ n_input if n_input else '' }}" 
-                               placeholder="N" required>
-                    </div>
-                </div>
-
-                <button type="submit" class="submit-btn">
-                    🚀 Find Nth Largest Number
-                </button>
-            </form>
-
-            <div class="example-section">
-                <div class="example-title">📝 Example:</div>
-                <div class="example-text">
-                    Numbers: <strong>10, 5, 8, 20, 3, 15, 7, 12</strong><br>
-                    N = <strong>3</strong> → 3rd Largest = <strong>12</strong><br>
-                    <small>(Sorted: 20, 15, 12, 10, 8, 7, 5, 3)</small>
-                </div>
+            <div class="mb-3">
+                <label for="n" class="form-label">Enter N:</label>
+                <input type="number" class="form-control" id="n" name="n" value="{{ n_input }}" required>
             </div>
-        </div>
+            <button type="submit" class="btn btn-primary w-100">Find</button>
+        </form>
 
         {% if result %}
-        <div class="result-section">
-            <h3 class="result-title">🎉 Your Result:</h3>
-            <div class="result-value">{{ result }}</div>
-            <div style="margin-top: 20px; color: #666; font-size: 0.95rem;">
-                The {{ n_input }}{{ 'st' if n_input == '1' else 'nd' if n_input == '2' else 'rd' if n_input == '3' else 'th' }} largest number in your list
-            </div>
+        <div class="result alert alert-info text-center mt-3">
+            {{ result }}
         </div>
         {% endif %}
     </div>
