@@ -1,19 +1,24 @@
 
 from flask import Flask, render_template_string, request, redirect, url_for, session
-import mysql.connector
+import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 
-# MySQL DB config (update with your own credentials)
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="yourpassword",
-    database="userdb"
-)
+# SQLite DB setup
+db = sqlite3.connect('users.db', check_same_thread=False)
 cursor = db.cursor()
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullname TEXT,
+    email TEXT,
+    username TEXT UNIQUE,
+    password TEXT
+)
+''')
+db.commit()
 
 HTML_STYLE = """<style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -93,7 +98,7 @@ def index():
 def login():
     username = request.form['username']
     password = request.form['password']
-    cursor.execute("SELECT password FROM users WHERE username=%s", (username,))
+    cursor.execute("SELECT password FROM users WHERE username=?", (username,))
     result = cursor.fetchone()
     if result and check_password_hash(result[0], password):
         session['username'] = username
@@ -109,7 +114,7 @@ def register():
         username = request.form['username']
         password = generate_password_hash(request.form['password'])
 
-        cursor.execute("SELECT * FROM users WHERE username=%s OR email=%s", (username, email))
+        cursor.execute("SELECT * FROM users WHERE username=? OR email=?", (username, email))
         if cursor.fetchone():
             return render_template_string(HTML_STYLE + '''
                 <div class='container'>
@@ -118,7 +123,7 @@ def register():
                     <div class='links'><a href="/">Back to Login</a></div>
                 </div>''')
 
-        cursor.execute("INSERT INTO users (fullname, email, username, password) VALUES (%s, %s, %s, %s)",
+        cursor.execute("INSERT INTO users (fullname, email, username, password) VALUES (?, ?, ?, ?)",
                        (fullname, email, username, password))
         db.commit()
         return redirect(url_for('index', message="Account created successfully"))
