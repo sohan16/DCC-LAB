@@ -9,10 +9,10 @@ app.secret_key = 'your-secret-key-change-this-in-production'
 
 # MySQL config for freesqldatabase.com
 DB_CONFIG = {
-    'host': "db4free.net",              # ✅ Always this
-    'user': "sohan123",            # e.g., "sohan123"
-    'password': "pdUJ@285$_Q3@#y",        # e.g., "MyStrongPass123!"
-    'database': "userdbs"    # e.g., "userdbdemo"
+    'host': "db4free.net",
+    'user': "sohanuser",              # ✅ Your username
+    'password': "Gz7#rP9dXqL!",
+    'database': "userdbdemo"
 }
 
 
