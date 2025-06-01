@@ -1,26 +1,21 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
-@app.route('/nth-largest', methods=['GET'])
-def nth_largest():
-    numbers_str = request.args.get('numbers')
-    n = request.args.get('n')
-
-    if not numbers_str or not n:
-        return jsonify({'error': 'Please provide both numbers and n'}), 400
-
-    try:
-        numbers = list(map(int, numbers_str.split(',')))
-        n = int(n)
-
-        if n <= 0 or n > len(numbers):
-            return jsonify({'error': 'Invalid value of n'}), 400
-
-        nth_largest_number = sorted(numbers, reverse=True)[n - 1]
-        return jsonify({'nth_largest': nth_largest_number})
-    except ValueError:
-        return jsonify({'error': 'Invalid input'}), 400
-
-if __name__ == '__main__':
-    app.run(debug=True)
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    result = None
+    n = None
+    if request.method == 'POST':
+        numbers_str = request.form['numbers']
+        n = int(request.form['n'])
+        try:
+            numbers = [int(num.strip()) for num in numbers_str.split(',')]
+            if 1 <= n <= len(numbers):
+                numbers.sort(reverse=True)
+                result = numbers[n - 1]
+            else:
+                result = "Invalid value of n"
+        except ValueError:
+            result = "Please enter only numbers separated by commas."
+    return render_template('index.html', result=result, n=n)

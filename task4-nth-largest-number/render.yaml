@@ -1,7 +1,8 @@
 services:
   - type: web
-    name: nth-largest-api
+    name: task4-nth-largest
     env: python
+    plan: free
     buildCommand: ""
     startCommand: gunicorn main:app
-    plan: free
+    rootDir: task4-nth-largest-number
