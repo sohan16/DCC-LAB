@@ -1,6 +1,5 @@
 
 from flask import Flask, render_template_string, request, redirect, url_for
-import mysql.connector
 
 app = Flask(__name__)
 
@@ -117,10 +116,6 @@ HTML_STYLE = """<style>
     }
 </style>"""
 
-# Your existing HTML_PAGE_TEMPLATE and app logic will stay the same...
-# You can paste them here if you'd like them in the download too.
-
-# Placeholder app route
 @app.route('/')
 def home():
     return render_template_string(HTML_STYLE + "<div class='container'><h2 class='header'>Welcome!</h2></div>")
