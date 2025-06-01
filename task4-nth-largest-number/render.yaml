@@ -1,8 +1,7 @@
 services:
   - type: web
-    name: task4-nth-largest-number
+    name: nth-largest-api
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: python app.py
-    rootDir: .
+    buildCommand: ""
+    startCommand: gunicorn main:app
     plan: free
