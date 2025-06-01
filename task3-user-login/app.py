@@ -9,11 +9,12 @@ app.secret_key = 'your-secret-key-change-this-in-production'
 
 # MySQL config for freesqldatabase.com
 DB_CONFIG = {
-    'host': "sql12.freesqldatabase.com",
-    'user': "sql12782538",
-    'password': "YOUR_PASSWORD_HERE",  # Replace with your actual password
-    'database': "sql12782538"
+    'host': "db4free.net",              # ✅ Always this
+    'user': "sohan123",            # e.g., "sohan123"
+    'password': "pdUJ@285$_Q3@#y",        # e.g., "MyStrongPass123!"
+    'database': "userdbs"    # e.g., "userdbdemo"
 }
+
 
 def get_db_connection():
     try:
