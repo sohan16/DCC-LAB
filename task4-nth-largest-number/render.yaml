@@ -1,8 +1,0 @@
-services:
-  - type: web
-    name: task4-nth-largest
-    env: python
-    plan: free
-    buildCommand: ""
-    startCommand: gunicorn main:app
-    rootDir: task4-nth-largest-number
